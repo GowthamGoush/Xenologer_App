@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="20dp">
+
+
+        <ImageView
+            android:id="@+id/apodImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_nasa_logo" />
+
+        <TextView
+            android:id="@+id/apodDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/apodImage"
+            android:layout_marginTop="6dp"
+            android:text="TITLE"
+            android:textStyle="bold"
+            android:textColor="#0E0D0E"
+            />
+
+        <TextView
+            android:id="@+id/apodDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:padding="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/apodDate"
+            android:layout_marginTop="12dp"
+            android:text="DESCRIPTION"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+
+</RelativeLayout>
