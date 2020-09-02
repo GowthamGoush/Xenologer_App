@@ -53,7 +53,6 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-
     public void jsonAssetReq(final String nasaId) {
 
         String assetUrl = "https://images-api.nasa.gov/asset/" + nasaId;
@@ -70,7 +69,11 @@ public class MainActivity2 extends AppCompatActivity {
 
                     itemImage = jsonObject1.getString("href");
 
-                    setImage(itemImage);
+                    Glide.with(MainActivity2.this)
+                            .load(itemImage)
+                            .circleCrop()
+                            .placeholder(R.drawable.ic_nasa_logo)
+                            .into(imageView);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -85,32 +88,6 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
         requestQueue.add(jsonObjectRequest);
-    }
-
-    public void setImage(String imageUrl){
-        String[] format = imageUrl.split(".");
-
-        for(String a : format){
-            if (a.equals("JPG")) {
-                jpgFormat = true;
-                break;
-            }
-        }
-
-        if(jpgFormat){
-            Glide.with(MainActivity2.this)
-                    .load("https://images-assets.nasa.gov/image/"+itemId+"/"+itemId+"~orig.JPG")
-                    .circleCrop()
-                    .placeholder(R.drawable.ic_nasa_logo)
-                    .into(imageView);
-        }
-        else {
-            Glide.with(MainActivity2.this)
-                    .load("https://images-assets.nasa.gov/image/"+itemId+"/"+itemId+"~orig.jpg")
-                    .circleCrop()
-                    .placeholder(R.drawable.ic_nasa_logo)
-                    .into(imageView);
-        }
     }
 
     @Override
