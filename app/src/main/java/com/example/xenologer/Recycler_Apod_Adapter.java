@@ -1,11 +1,15 @@
 package com.example.xenologer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,13 +27,19 @@ public class Recycler_Apod_Adapter extends RecyclerView.Adapter<Recycler_Apod_Ad
 
         public TextView apodDate,apodDesc;
         public ImageView apodImage;
+        public WebView apodVideo;
 
+        @SuppressLint("SetJavaScriptEnabled")
         public Recycler_ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             apodDate = itemView.findViewById(R.id.apodDate);
             apodDesc = itemView.findViewById(R.id.apodDesc);
             apodImage = itemView.findViewById(R.id.apodImage);
+            apodVideo = itemView.findViewById(R.id.apodVideo);
+
+            apodVideo.getSettings().setJavaScriptEnabled(true);
+            apodVideo.setWebChromeClient(new WebChromeClient());
 
         }
     }
@@ -54,15 +64,24 @@ public class Recycler_Apod_Adapter extends RecyclerView.Adapter<Recycler_Apod_Ad
         holder.apodDate.setText(details.getName());
         holder.apodDesc.setText(details.getDescription());
 
-        Glide.with(mContext)
-                .load(details.getImageUrl())
-                .placeholder(R.drawable.ic_nasa_logo)
-                .circleCrop()
-                .into(holder.apodImage);
+        if(!details.getImageUrl().equals("image")) {
+            holder.apodVideo.setVisibility(View.GONE);
+            Glide.with(mContext)
+                    .load(details.getImageUrl())
+                    .placeholder(R.drawable.ic_nasa_logo)
+                    .circleCrop()
+                    .into(holder.apodImage);
+        }
+        else if(!details.getVideoUrl().equals("noVideo")){
+            holder.apodImage.setVisibility(View.GONE);
+            holder.apodVideo.loadUrl(details.getVideoUrl());
+        }
     }
 
     @Override
     public int getItemCount() {
         return ItemList.size();
     }
+
+
 }

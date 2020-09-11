@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 recyclerView2.setVisibility(View.VISIBLE);
                 cardView.setVisibility(View.GONE);
+                apodList.clear();
+                adapterApod.notifyDataSetChanged();
                 cardView.animate().translationY(-50f).setDuration(0).start();
             }
 
@@ -198,10 +200,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     String type = response.getString("media_type");
                     if (type.equals("image")) {
-                        apodList.add(new ApodDetails("APOD : "+date, image, desc));
+                        apodList.add(new ApodDetails("APOD : "+date, image,"video", desc));
                         adapterApod = new Recycler_Apod_Adapter(apodList, MainActivity.this);
                     } else {
-                        apodList.add(new ApodDetails("APOD : "+date, "image", desc));
+                        apodList.add(new ApodDetails("APOD : "+date, "image",image, desc));
                         adapterApod = new Recycler_Apod_Adapter(apodList, MainActivity.this);
                     }
                     recyclerView1.setAdapter(adapterApod);
@@ -213,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                apodList.add(new ApodDetails("APOD : "+ yyyy +"-"+ month +"-"+ day, "image","Data Unavailable !"));
+                apodList.add(new ApodDetails("APOD : "+ yyyy +"-"+ month +"-"+ day, "noImage", "noVideo","Data Unavailable !"));
                 adapterApod = new Recycler_Apod_Adapter(apodList, MainActivity.this);
                 recyclerView1.setAdapter(adapterApod);
             }

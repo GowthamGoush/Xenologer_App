@@ -28,7 +28,6 @@ public class MainActivity2 extends AppCompatActivity {
     private TextView textView1, textView2;
     private String itemName,itemId,itemImage;
     private RequestQueue requestQueue;
-    private boolean jpgFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
